@@ -1,0 +1,7 @@
+*
+!Dockerfile
+!docker-compose.yml
+!poetry.lock
+!pyproject.toml
+!app/
+!wait-for-it.sh
