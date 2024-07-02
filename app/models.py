@@ -1,7 +1,8 @@
-from app.database import Base
 from sqlalchemy import (Boolean, Column, Float, ForeignKey, Integer,
                         LargeBinary, String)
 from sqlalchemy.orm import relationship
+
+from app.database import Base
 
 
 class Users(Base):
@@ -18,8 +19,8 @@ class Users(Base):
     phone_number = Column(String)
     address_id = Column(Integer, ForeignKey("address.id"), nullable=True)
     todos = relationship(
-        "Todos", back_populates="owner"
-    )  # creates the relationship with table "Todos"
+        "Products", back_populates="owner"
+    )  # creates the relationship with table "Products"
     address = relationship("Address", back_populates="user_address")
 
 
@@ -32,9 +33,9 @@ class Products(Base):
     description = Column(String)
     price = Column(Float)
     image = Column(LargeBinary)
-    #owner_id = Column(Integer, ForeignKey("users.id"))  # fk in table Users
+    owner_id = Column(Integer, ForeignKey("users.id"))  # fk in table Users
 
-    #owner = relationship("Users", back_populates="products")
+    owner = relationship("Users", back_populates="products")
 
 
 class Address(Base):
@@ -49,5 +50,3 @@ class Address(Base):
     apartment_number = Column(Integer)
 
     user_address = relationship("Users", back_populates="address")
-
-

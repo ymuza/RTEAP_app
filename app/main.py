@@ -1,15 +1,18 @@
 from fastapi import Depends, FastAPI
-from app.routers import product_service
+import sys
+import os
+from app.routers import product_service, users_service, auth
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 app = FastAPI()
 
-#Base.metadata.create_all(bind=engine)  # creates the database (tables & columns)
 
+app.include_router(auth.router)
 app.include_router(product_service.router)
+app.include_router(users_service.router)
 
 
 @app.get("healthy")
 def health_check():
     return {'status': 'healthy'}
-
-
