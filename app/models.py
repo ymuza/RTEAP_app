@@ -18,10 +18,23 @@ class Users(Base):
     is_active = Column(Boolean, default=True)
     phone_number = Column(String)
     address_id = Column(Integer, ForeignKey("address.id"), nullable=True)
-    todos = relationship(
+    products = relationship(
         "Products", back_populates="owner"
     )  # creates the relationship with table "Products"
     address = relationship("Address", back_populates="user_address")
+
+
+class AdminUsers(Base):
+    __tablename__ = "adminUsers"
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True)
+    username = Column(String, unique=True, index=True)
+    firstname = Column(String)
+    lastname = Column(String)
+    hashed_password = Column(String)
+    is_active = Column(Boolean, default=True)
+    phone_number = Column(String)
+    role = Column(String)
 
 
 class Products(Base):
